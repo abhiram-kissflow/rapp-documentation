@@ -1,6 +1,39 @@
 ---
 title: Tech Stack
-description: The technology stack powering Kissflow RAPP.
+description: Technologies powering RAPP
 ---
 
-Content coming soon.
+RAPP is built on a modern frontend stack optimized for fast development, type safety, and AI-powered features.
+
+## Core technologies
+
+| Category | Technology | Version | Purpose |
+|----------|-----------|---------|---------|
+| UI Framework | React | 19 | Component-based user interfaces |
+| Language | TypeScript | 5.7 | Type-safe JavaScript (strict mode) |
+| Styling | Tailwind CSS | 4.0 | Utility-first CSS framework |
+| Build Tool | Vite | 7.3 | Fast development server and bundler |
+| State Management | Zustand | 5.0 | Lightweight state with localStorage persistence |
+| Routing | React Router | 7.13 | Client-side page navigation |
+| UI Primitives | Radix UI | Various | Accessible component library |
+| AI | OpenAI GPT-5.2 | Latest | App generation, conversation, analysis |
+| Voice | OpenAI Realtime API | Latest | Real-time voice conversations |
+| Testing | Playwright | 1.58 | End-to-end browser testing |
+| Package Manager | pnpm | 9.15+ | Fast, disk-efficient dependency management |
+| Hosting | Cloudflare Pages | — | Edge-deployed static hosting |
+
+## Architectural decisions
+
+### Monorepo structure
+
+RAPP runs four apps from a single repository: Website Web, Website Mobile, Builder Web, and Builder Mobile. All four share one set of dependencies, one build configuration, and one Vite dev server on port 3000. This eliminates the overhead of publishing shared packages between repos and allows cross-app changes in a single commit.
+
+A custom Vite plugin (`multi-app-plugin.ts`) handles URL-based routing to determine which app to serve, while dynamic imports in `src/main.tsx` ensure each app loads only its own code.
+
+### Zustand for state management
+
+Zustand was chosen over Redux and React Context for three reasons: minimal boilerplate, excellent performance through selective re-renders, and built-in `persist` middleware that saves state to `localStorage`. This means conversation data and app specifications survive browser refreshes without any additional infrastructure. Each app maintains its own stores while sharing auth utilities through `@rapp/shared-web`.
+
+### Vite as build tool
+
+Vite provides near-instant hot module replacement during development and optimized production builds. A custom multi-app plugin extends Vite to serve all four apps from a single dev server, rewriting URL paths to the shared `index.html` entry point and resolving per-app `@/` import aliases. Shared dependencies (React, Zustand, React Router, Radix UI) are pre-bundled to prevent staggered dependency discovery and unnecessary page reloads during development.

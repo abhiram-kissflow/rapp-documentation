@@ -1,6 +1,65 @@
 ---
 title: Design System
-description: The design system and component library used in Kissflow RAPP.
+description: KFDS — the component library behind RAPP's interface
 ---
 
-Content coming soon.
+## What is KFDS?
+
+**KFDS** (Kissflow Design System) is the UI component library used by RAPP's Builder application. It is built on top of [Radix UI](https://www.radix-ui.com/) — an open-source library of accessible, unstyled primitives — and styled to follow Kissflow's design language.
+
+KFDS lives in a separate repository (`OrangeScape/kf-design-system`) and is connected to RAPP as a git submodule. It provides two packages: `@kfds-web` for desktop components and `@kfds-mobile` for mobile-optimized variants.
+
+Only the Builder apps consume KFDS. The Website apps use their own lightweight components suited to their conversational UI.
+
+## Components
+
+| Component | Import path | Description |
+|-----------|------------|-------------|
+| Spinner | `@kfds-web/spinner` | Loading indicators with configurable sizes |
+| Dialog | `@kfds-web/dialog` | Modal dialogs with overlay |
+| Alert Dialog | `@kfds-web/alert-dialog` | Confirmation dialogs |
+| Tooltip | `@kfds-web/tooltip` | Hover information tooltips |
+| Dropdown Menu | `@kfds-web/dropdown-menu` | Context menus and dropdowns |
+| Popover | `@kfds-web/popover` | Floating content panels |
+| Avatar | `@kfds-web/avatar` | User profile images with fallback |
+| Switch | `@kfds-web/switch` | Toggle switches |
+| Checkbox | `@kfds-web/checkbox` | Checkbox inputs |
+| Select | `@kfds-web/select` | Dropdown select (built on Downshift) |
+| Input Box | `@kfds-web/input-box` | Text input fields |
+| Slider | `@kfds-web/slider` | Range sliders |
+| Toast | `@kfds-web/toast` | Notification toasts |
+| Progress | `@kfds-web/progress` | Progress bars |
+| Toggle Group | `@kfds-web/toggle-group` | Segmented controls |
+| List | `@kfds-web/list` | List components with selection |
+
+Most components follow Radix UI's compound component pattern (e.g., `Dialog.Root`, `Dialog.Content`, `Dialog.Close`).
+
+## Theming
+
+KFDS uses CSS custom properties for theming, organized into semantic tokens:
+
+| Token category | Example variable | Purpose |
+|---------------|-----------------|---------|
+| `surface-*` | `--color-surface-50` | Background colors (50 = lightest, 900 = darkest) |
+| `content-*` | `--color-content-primary` | Text and icon colors |
+| `primary-*` | `--color-primary-500` | Brand and accent colors |
+| `border-*` | `--color-border-secondary` | Border colors |
+
+Dark mode is supported through the `[data-theme="dark"]` selector, which overrides the token values. Components should always reference token-based classes (e.g., `bg-surface-50`) rather than hardcoded Tailwind colors to ensure theme compatibility.
+
+Token definitions live in `builder/web/src/components/ui/theme/tokens/color.css`.
+
+## Integration with RAPP
+
+KFDS is included as a **git submodule** — a pointer to a specific commit in the `OrangeScape/kf-design-system` repository. This approach lets the design system be shared across multiple Kissflow projects while allowing each project to pin to a stable commit.
+
+Vite path aliases make imports clean:
+
+| Alias | Resolves to |
+|-------|------------|
+| `@kfds-web` | `kf-design-system/packages/web/src/components` |
+| `@kfds-mobile` | `kf-design-system/packages/mobile/src/components` |
+
+KFDS was originally built for React 18. RAPP uses React 19, so `pnpm` overrides and Vite's `resolve.dedupe` configuration ensure a single React instance is used, avoiding version conflicts.
+
+For full component documentation and source code, see the [kf-design-system repository](https://github.com/OrangeScape/kf-design-system).
