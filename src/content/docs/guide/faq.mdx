@@ -1,6 +1,50 @@
 ---
 title: FAQ
-description: Frequently asked questions about Kissflow RAPP.
+description: Frequently asked questions about using RAPP to build apps.
 ---
 
-Content coming soon.
+import { Aside } from '@astrojs/starlight/components';
+
+## What kinds of apps can I build?
+
+RAPP works best with business applications like workflow apps (leave management, expense approvals), portals (employee self-service, customer dashboards), data collection apps (surveys, registration forms), and tracking apps (bug trackers, order tracking). Many real-world apps combine these patterns, and RAPP handles hybrid cases well.
+
+## Do I need to know how to code?
+
+No. RAPP is designed for non-technical users. You describe what you want in plain English — either by typing or speaking — and the AI handles all the technical work. No programming, database design, or technical skills required.
+
+## How does the AI know what I want?
+
+The AI uses your initial description to identify the type of app you're building and infers about 80% of the requirements from context. It then asks 3 to 5 targeted follow-up questions to fill in the gaps. The questions are based on common patterns for your app type, so the AI is drawing on knowledge of how similar apps typically work.
+
+## Is my data safe?
+
+Your data is processed securely and is not used to train AI models. Conversations and uploaded documents are used only to generate your app's blueprint. For details on RAPP's security practices, see the [security overview](/rapp-documentation/evaluate/security/).
+
+## Can I edit what the AI generates?
+
+Absolutely. The AI generates a starting point, not a final product. You can modify every part of the blueprint by chatting with the AI in the Builder. Add features, remove sections, change workflows, update rules — the AI makes changes in real time based on your instructions.
+
+## What if the AI gets it wrong?
+
+It happens, and it's easy to fix. Just tell the AI what's incorrect in the chat. For example, "The approval workflow should go to the department head, not the HR manager." The AI will update the blueprint immediately. You can make as many corrections as you need.
+
+## Does voice input work on mobile?
+
+RAPP has a mobile-optimized interface that supports voice input. You can speak your app idea and answer questions using your phone's microphone, just like on the desktop version. Make sure your mobile browser has permission to access the microphone.
+
+## What browsers are supported?
+
+RAPP works with all modern browsers: Google Chrome, Mozilla Firefox, Apple Safari, and Microsoft Edge. For the best experience, keep your browser updated to the latest version. Voice features have the broadest support in Chrome and Firefox.
+
+## How many questions will the AI ask?
+
+The AI asks between 3 and 5 questions, depending on the complexity of your app and how detailed your initial description is. If you provide a thorough description upfront, the AI may ask fewer questions. It never asks more than 6 questions — it's designed to be efficient, not exhaustive.
+
+## Can I upload existing specifications?
+
+Yes. When you start a new app, you can choose "I have a spec" and upload a PDF, Word document, or text file. The AI reads the document, extracts the requirements, and generates a blueprint without needing to interview you. Even rough or incomplete documents give the AI a useful head start.
+
+<Aside type="tip">
+Can't find what you're looking for? Start with the [getting started guide](/rapp-documentation/guide/getting-started/) for a complete walkthrough of the app-building process.
+</Aside>

@@ -1,6 +1,87 @@
 ---
-title: Voice Features
-description: Explore voice-driven features in Kissflow RAPP.
+title: Voice features
+description: How to use voice input to talk to the AI instead of typing.
 ---
 
-Content coming soon.
+import { Steps, Aside } from '@astrojs/starlight/components';
+
+RAPP lets you talk to the AI using your voice instead of typing. You can describe your app idea out loud, answer interview questions by speaking, and have a natural back-and-forth conversation — just like talking to a colleague.
+
+## What voice features do
+
+Voice mode turns RAPP into a spoken conversation. Instead of typing in a text field, you speak into your microphone. The AI listens, understands what you said, and responds with its own voice through your speakers. Everything works the same as text mode — the AI asks questions, generates blueprints, and makes changes — but the interaction happens through speech.
+
+## How to start a voice conversation
+
+There are two ways to activate voice mode:
+
+<Steps>
+
+1. **From the landing page** — Click the microphone icon next to the text input field. This starts a voice conversation from the very beginning. You can speak your app idea instead of typing it.
+
+2. **During an existing conversation** — If you started with text and want to switch to voice, click the voice mode toggle in the conversation input bar. You can switch back to text at any time.
+
+</Steps>
+
+When voice mode is active, you'll see a visual indicator showing that the microphone is listening.
+
+## Speaking tips
+
+Voice conversations work best when you follow a few simple guidelines:
+
+- **Speak clearly and naturally.** Use your normal speaking voice. You don't need to speak slowly or use special phrasing — the AI understands natural language.
+- **Pause when you're done.** The AI detects silence to know when you've finished speaking. After about 1.5 seconds of quiet, it assumes you're done and starts processing your input.
+- **Wait for the AI to finish.** Let the AI complete its response before you start talking again. Speaking over the AI can cause your words to be missed.
+- **Keep it conversational.** Describe your ideas the same way you'd explain them to a person. "I need an app where employees submit time-off requests and their managers approve them" works perfectly.
+
+<Aside type="tip">
+If the AI starts responding before you're finished, just wait for it to stop and then continue with the rest of your thought. The AI will pick up where you left off.
+</Aside>
+
+## Switching between text and voice
+
+You can switch between text and voice at any point in the conversation. Click the voice toggle to turn voice mode on or off. Your conversation history is preserved regardless of which mode you use — switching modes does not reset the conversation.
+
+This flexibility is useful because some parts of the process work better with voice and others work better with text.
+
+## When voice works best
+
+Voice input is ideal for:
+
+- **Initial brainstorming** — Speaking your app idea out loud is often faster and more natural than typing it
+- **Quick descriptions** — "I need a form with name, email, phone number, and a dropdown for department"
+- **Answering interview questions** — Speaking your choices is faster than reading and clicking
+- **Exploring ideas** — Thinking out loud while the AI listens and adapts
+
+## When text works better
+
+Consider switching to text when:
+
+- **Writing detailed specifications** — Long, precise descriptions with specific field names, rules, or conditions are easier to type accurately
+- **Complex requirements** — If your app has intricate business logic, typing lets you review and edit before sending
+- **Noisy environments** — Background noise can interfere with speech recognition
+- **Referencing specific terms** — Technical names, acronyms, or unusual words are more reliably entered as text
+
+## Troubleshooting
+
+If voice mode isn't working as expected, try these steps:
+
+### Allow microphone permissions
+
+When you first use voice mode, your browser will ask for permission to access your microphone. Click "Allow" when prompted. If you accidentally denied permission, you can change this in your browser's site settings.
+
+### Check the voice proxy (local development only)
+
+If you're running RAPP locally for development, the voice proxy server needs to be running separately. See the [demo setup guide](/rapp-documentation/evaluate/demo/) for instructions on starting the voice proxy.
+
+<Aside>
+This only applies to local development setups. If you're using a hosted version of RAPP, the voice proxy is already running.
+</Aside>
+
+### Connection issues
+
+If the voice connection drops or becomes unresponsive:
+
+- **Refresh the page** — This resets the voice connection and usually resolves temporary issues
+- **Check your internet connection** — Voice mode requires a stable connection since audio is streamed in real time
+- **Try a different browser** — If the issue persists, try Chrome or Firefox, which have the broadest support for the audio features RAPP uses

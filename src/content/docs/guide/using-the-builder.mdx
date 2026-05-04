@@ -1,6 +1,98 @@
 ---
-title: Using the Builder
-description: A guide to using the Kissflow RAPP builder interface.
+title: Using the builder
+description: How to refine your app using the Builder's chat panel, preview, and blueprint views.
 ---
 
-Content coming soon.
+import { Aside, Steps } from '@astrojs/starlight/components';
+
+The Builder is where your app takes shape. After the AI generates your initial blueprint, you move to the Builder to refine it, make changes, and preview the result. Everything happens through a conversation with the AI — just tell it what you want, and it updates your app.
+
+## The builder layout
+
+The Builder screen is divided into two main areas:
+
+- **Chat panel** (left side) — This is where you talk to the AI. Type your instructions, ask questions, or attach files. The AI responds with updates and explanations.
+- **Preview panel** (right side) — This shows your app's blueprint and, eventually, a preview of the generated application. You can switch between different views using the tabs at the top.
+
+Together, these two panels give you a "describe and see" workflow. You tell the AI what to change on the left, and you see the result on the right.
+
+## Talking to the AI
+
+The chat panel works like a messaging interface. Type what you want in the input field at the bottom and press Enter. The AI reads your message, makes the change, and updates the blueprint.
+
+Here are some examples of things you can say:
+
+- **Add something:** "Add an approval step before the request is finalized"
+- **Remove something:** "Remove the email notification from the onboarding process"
+- **Change something:** "Change the expense limit from $500 to $1,000"
+- **Ask a question:** "What roles currently have access to the reports page?"
+- **Describe a new feature:** "I need a dashboard that shows pending approvals for managers"
+
+The AI understands natural language, so you don't need to use any special commands or syntax. Just describe what you want in plain English.
+
+<Aside type="tip">
+Be as specific as you can. "Add a date field to the leave request form" will get better results than "add a field." The AI can handle vague requests too, but specificity saves time.
+</Aside>
+
+## Attaching files
+
+You can attach files to your messages for additional context. Click the attachment icon in the chat input to upload a file. This is useful when you want to:
+
+- Share a document with updated requirements
+- Provide a reference spreadsheet with field definitions
+- Upload a mockup or wireframe to guide the design
+
+The AI will read the file and incorporate the information into your blueprint.
+
+## Previewing your app
+
+The preview panel on the right side of the screen shows your app in different views. Use the tabs at the top to switch between them:
+
+- **What (Spec)** — The full blueprint with all six sections (overview, roles, processes, forms, rules, integrations). Click any item to see its details.
+- **Design (Flows)** — Visual workflow diagrams showing how your processes connect.
+- **Developer (Build)** — The generated app code and technical implementation.
+
+As you make changes through the chat, the preview updates in real time. You can watch your blueprint evolve as you refine your app.
+
+## The floating chat
+
+If you need more screen space to review your blueprint, you can minimize the chat panel. It collapses into a floating chat bubble in the corner of the screen. Click the bubble to expand it back to the full chat panel.
+
+This is handy when you want to focus on reading the blueprint or exploring the workflow diagrams without the chat taking up half the screen.
+
+## Switching between blueprint views
+
+Each section of the blueprint (overview, roles, processes, forms, rules, integrations) has two viewing modes:
+
+- **Gallery view** — A list or grid of all items in that section. Use this to browse and get an overview.
+- **Inspector view** — Click any item in the gallery to open its details. This shows the full description, fields, properties, and relationships for that item.
+
+For example, in the Roles section, the gallery shows all roles as cards (Employee, Manager, HR Admin). Click a role card to open the inspector and see exactly what permissions and capabilities that role has.
+
+<Aside>
+You can make changes from any view. Whether you're looking at the gallery, the inspector, or the workflow diagram, just type your change into the chat and the AI will handle it.
+</Aside>
+
+## A typical builder session
+
+Here's what a typical session looks like:
+
+<Steps>
+
+1. **Review the blueprint** — Start by reading through the overview and checking that the AI understood your app correctly.
+
+2. **Walk through each section** — Check roles, processes, forms, and rules. Click into items to see the details.
+
+3. **Request changes** — Tell the AI what to add, remove, or modify. For example: "The manager role should also be able to export reports."
+
+4. **Review updates** — Watch the blueprint update in the preview panel. Make sure the changes look right.
+
+5. **Iterate** — Repeat steps 2 through 4 until your app matches what you need. There's no limit to how many changes you can make.
+
+</Steps>
+
+## What's next
+
+- [Managing your app](/rapp-documentation/guide/managing-your-app/) — Set up users, roles, and account settings
+- [Understanding blueprints](/rapp-documentation/guide/understanding-blueprints/) — A deeper look at what's inside your blueprint
+- [Voice features](/rapp-documentation/guide/voice-features/) — Use voice instead of typing to talk to the AI

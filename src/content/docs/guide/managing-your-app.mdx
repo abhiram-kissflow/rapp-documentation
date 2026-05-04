@@ -1,6 +1,139 @@
 ---
-title: Managing Your App
-description: Manage, deploy, and maintain your Kissflow RAPP application.
+title: Managing your app
+description: How to configure account settings, manage users and roles, and set up security.
 ---
 
-Content coming soon.
+import { Aside, Steps } from '@astrojs/starlight/components';
+
+Once your app's blueprint is in good shape, you'll want to set up the people and settings that make it ready for real use. The Builder's admin panel lets you configure your app's name, branding, users, roles, and security settings.
+
+## Opening the admin panel
+
+The admin panel is accessible from within the Builder. Navigate to the administration section to see three main areas:
+
+- **Account settings** — App name, timezone, and branding
+- **User management** — Add and remove users, assign roles
+- **Role management** — Create roles and set permissions
+
+## Account settings
+
+Account settings control the general properties of your application.
+
+### App name and description
+
+Give your app a clear name and description so users know what it's for at a glance. For example, "Team Leave Manager" with a description like "Submit and approve leave requests for the engineering team."
+
+### Timezone settings
+
+Set the timezone for your app. This affects how dates and times are displayed throughout the application — important for things like leave start dates, deadline timestamps, and report generation.
+
+### Branding
+
+Customize how your app looks to match your organization:
+
+- **Logo** — Upload your company or team logo. It appears in the app's header and login screen.
+- **Colors** — Set primary and accent colors to match your brand. These colors are applied throughout the app's interface.
+
+<Aside type="tip">
+Branding changes take effect immediately. You can preview how your app looks with the new colors and logo before sharing it with users.
+</Aside>
+
+## Managing users
+
+The user management section lets you control who has access to your app and what they can do.
+
+### Adding new users
+
+<Steps>
+
+1. Open the user management section in the admin panel.
+2. Click the button to add a new user.
+3. Enter the user's name and email address.
+4. Assign one or more roles to the user (for example, "Employee" or "Manager").
+5. Save the new user.
+
+</Steps>
+
+The user will be able to access the app with the permissions defined by their assigned role.
+
+### Assigning roles
+
+Each user needs at least one role. Roles determine what the user can see and do in the app. You can assign roles when you add a user, or update them later.
+
+For example, in a leave management app:
+- Assign the **Employee** role to team members who submit leave requests
+- Assign the **Manager** role to people who approve requests
+- Assign the **HR Admin** role to people who manage policies and view all records
+
+A single user can have multiple roles if needed. A team lead, for instance, might have both the Employee and Manager roles.
+
+### Removing access
+
+To remove a user's access to the app, open their profile in the user management section and remove them. This immediately revokes their ability to log in and use the application.
+
+<Aside>
+Removing a user does not delete the data they created (such as submitted forms or approvals). That data remains in the system.
+</Aside>
+
+## Managing roles
+
+Roles are the building blocks of access control. They define what different types of users can see and do.
+
+### What roles are
+
+A role is a named set of permissions. When you assign a role to a user, that user gets all the permissions the role grants. Common examples:
+
+| Role | Typical permissions |
+|------|-------------------|
+| Employee | Submit requests, view own records |
+| Manager | Approve/reject requests, view team records |
+| Admin | Full access, manage settings, view all records |
+| Viewer | Read-only access to reports and dashboards |
+
+Your app's blueprint defines an initial set of roles based on what the AI inferred from your description. You can keep these as-is, modify them, or create entirely new ones.
+
+### Creating custom roles
+
+<Steps>
+
+1. Open the role management section in the admin panel.
+2. Click the button to create a new role.
+3. Give the role a name and description (for example, "Department Head" with the description "Approves requests and views department-level reports").
+4. Set the permissions for the role — choose which actions this role can perform and which sections of the app it can access.
+5. Save the new role.
+
+</Steps>
+
+Once created, you can assign the new role to users in the user management section.
+
+### Setting permissions
+
+Permissions control the specific actions a role can take. Depending on your app, these might include:
+
+- **View** — See data and records
+- **Create** — Submit new entries or forms
+- **Edit** — Modify existing records
+- **Delete** — Remove records
+- **Approve** — Approve or reject submissions
+- **Export** — Download data as files
+- **Manage** — Access admin settings and configuration
+
+Each role can have a different combination of these permissions. For example, the Employee role might have View and Create permissions, while the Manager role adds Approve on top of those.
+
+## Security settings
+
+The admin panel includes a security settings section for controlling access and authentication policies. This covers settings like:
+
+- Password requirements (minimum length, complexity rules)
+- Session timeout (how long a user can be idle before being logged out)
+- Multi-factor authentication options
+
+<Aside>
+Security settings apply to all users of your app. Configure them based on your organization's policies and the sensitivity of the data your app handles.
+</Aside>
+
+## What's next
+
+- [Using the builder](/rapp-documentation/guide/using-the-builder/) — Learn how to refine your app through AI chat
+- [Understanding blueprints](/rapp-documentation/guide/understanding-blueprints/) — Review what's in your app's blueprint
+- [FAQ](/rapp-documentation/guide/faq/) — Answers to common questions about RAPP

@@ -1,6 +1,97 @@
 ---
-title: Designing Your App
-description: Learn how to design your application with Kissflow RAPP.
+title: Designing your app
+description: How to describe your app idea, choose a path, and work with the AI interview process.
 ---
 
-Content coming soon.
+import { Aside, Card, CardGrid } from '@astrojs/starlight/components';
+
+RAPP gives you two ways to get started: upload an existing specification or describe your idea from scratch. Either way, the AI takes care of the heavy lifting. This page explains both paths and how to get the best results.
+
+## The two paths
+
+When you start a new app, the AI asks one simple question: **"Do you have a spec?"**
+
+### Path A: I have a spec
+
+If you already have a document that describes your app — even a rough one — you can upload it directly.
+
+1. Choose **"I have a spec"** when prompted.
+2. Upload your file. RAPP supports PDF, Word (.docx), and plain text files.
+3. The AI reads your document, extracts the requirements, and flags any gaps or unclear areas.
+4. You'll get a complete blueprint without needing to answer interview questions.
+
+This path works well when you have an existing requirements document, a project brief, or even detailed meeting notes.
+
+### Path B: Build from scratch
+
+If you're starting with just an idea, the AI will interview you to fill in the details.
+
+1. Choose **"Build from scratch"** when prompted.
+2. The AI analyzes your initial description and figures out what kind of app you're building.
+3. It asks 3 to 5 targeted questions — each with multiple-choice options you can click.
+4. Based on your answers (and what it infers from context), it generates a complete blueprint.
+
+The AI is designed to infer about 80% of what your app needs from your description alone. The questions focus on the remaining 20% — the decisions that are specific to your situation.
+
+## What kinds of apps work well
+
+RAPP works best with business applications that follow common patterns. Here are some examples:
+
+<CardGrid>
+  <Card title="Workflow apps">
+    Apps with approval chains and multi-step processes. Examples: leave management, expense approvals, purchase requests, content review workflows.
+  </Card>
+  <Card title="Portal apps">
+    Self-service apps where users access information or manage their accounts. Examples: employee self-service portals, customer dashboards, knowledge bases.
+  </Card>
+  <Card title="Data collection apps">
+    Apps focused on gathering and organizing information. Examples: surveys, event registration forms, feedback collection, onboarding checklists.
+  </Card>
+  <Card title="Tracking apps">
+    Apps that follow items through stages or statuses. Examples: bug trackers, order tracking systems, project task boards, support ticket systems.
+  </Card>
+</CardGrid>
+
+Many real-world apps combine these patterns. A project management app, for instance, might blend tracking with workflow approvals. RAPP handles these hybrid cases too.
+
+## Tips for describing your app effectively
+
+The better your initial description, the smarter the AI's questions will be. Here are some tips:
+
+- **Be specific about the purpose.** "A leave management system for a team of 50" is better than "an HR app."
+- **Mention key users.** If you know who will use the app (employees, managers, admins), say so. The AI will tailor its questions accordingly.
+- **Include the core workflow.** Something like "employees submit requests, managers approve them" gives the AI a strong starting point.
+- **Don't worry about technical details.** You don't need to mention databases, APIs, or frameworks. Focus on what the app should *do*, not how it should be built.
+- **Use plain language.** Describe your app the way you'd explain it to a coworker.
+
+<Aside type="tip">
+You don't need to cover everything in your initial description. The AI will ask follow-up questions to fill in the gaps. A sentence or two is enough to get started.
+</Aside>
+
+## How the AI interview works
+
+When you choose "Build from scratch," the AI runs a short, focused interview. Here's what's happening behind the scenes (from your perspective):
+
+1. **The AI reads your description.** It identifies what type of app you're building (workflow, portal, data collection, or tracking) and infers the likely users, features, and workflows.
+
+2. **It plans targeted questions.** Instead of asking 20 generic questions, the AI picks 3 to 5 questions that address the specific gaps in your description. For a workflow app, it might ask about the approval chain. For a portal app, it might ask about user segments.
+
+3. **Each question has clickable options.** You'll see multiple-choice options based on common patterns for your type of app. You can select one or more options depending on the question.
+
+4. **The AI adapts as you answer.** Your answers shape the next question. If you mention multiple approval levels, the AI might ask about escalation rules. If you say the app is simple, it might skip questions about advanced features.
+
+5. **The interview wraps up quickly.** Once the AI has enough information, it stops asking questions and moves straight to generating your blueprint. The whole process typically takes two to three minutes.
+
+## Uploading documents
+
+If you choose the "I have a spec" path, you can upload documents in these formats:
+
+- **PDF** files
+- **Word** documents (.docx)
+- **Plain text** files (.txt)
+
+The AI will read the entire document, extract requirements, and flag anything that seems unclear or incomplete. If your document covers everything, you'll go straight to a blueprint with no questions asked.
+
+<Aside>
+Even if your document is rough or incomplete, uploading it gives the AI a head start. It will work with whatever information you provide.
+</Aside>

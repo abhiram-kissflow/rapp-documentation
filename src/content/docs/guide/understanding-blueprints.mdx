@@ -1,6 +1,107 @@
 ---
-title: Understanding Blueprints
-description: Learn about blueprints and how they shape your RAPP application.
+title: Understanding blueprints
+description: What blueprints are, what they contain, and how to read them.
 ---
 
-Content coming soon.
+import { Aside, Tabs, TabItem } from '@astrojs/starlight/components';
+
+After you describe your app and answer the AI's questions, RAPP generates a **blueprint** — a complete, structured plan for your application. This page explains what's in a blueprint and how to navigate it.
+
+## What is a blueprint?
+
+A blueprint is your app's master plan. It's a detailed specification that covers everything about your application: what it does, who uses it, how workflows operate, what data gets collected, what rules govern behavior, and what external systems it connects to.
+
+Think of it like an architect's blueprint for a building. Before any construction starts, the blueprint lays out every room, door, hallway, and utility connection. RAPP's blueprints do the same thing for your app.
+
+The AI generates your blueprint based on your description and interview answers. You can review it, refine it, and update it at any time through the Builder.
+
+## The six sections
+
+Every blueprint is organized into six sections. Together, they describe your entire application.
+
+### Overview
+
+The overview is a summary of what your app does. It includes the app's name, its purpose, and a high-level description of its key features. This is the "elevator pitch" for your application.
+
+### Roles
+
+Roles define **who uses your app** and what they can do. A leave management app might have three roles:
+
+- **Employee** — Submits leave requests and views their own history
+- **Manager** — Reviews and approves or rejects requests from their team
+- **HR Admin** — Manages policies, views all records, generates reports
+
+Each role has a name, a description, and a set of capabilities. Roles control what each user sees and what actions they can take.
+
+### Processes
+
+Processes describe **step-by-step workflows** — the sequences of actions that happen in your app. For example, a leave request process might look like this:
+
+1. Employee fills out the leave request form
+2. Manager receives a notification and reviews the request
+3. Manager approves or rejects the request
+4. Employee is notified of the decision
+5. If approved, the leave is recorded in the system
+
+Each process has a name, a list of steps, and information about who is responsible for each step.
+
+### Forms
+
+Forms define **the screens where users enter data**. Each form includes a list of fields — things like text inputs, date pickers, dropdowns, and checkboxes. The blueprint specifies:
+
+- The form's name and purpose
+- Each field's label, type, and whether it's required
+- Validation rules (for example, "end date must be after start date")
+
+### Rules
+
+Rules capture the **business logic** that governs your app. These are the "if this, then that" conditions that make your app behave correctly. Examples:
+
+- "Only managers can approve leave requests"
+- "Expenses over $500 require VP approval"
+- "Users cannot submit more than 3 requests per week"
+
+Rules help ensure your app enforces the right policies automatically.
+
+### Integrations
+
+Integrations describe **connections to other systems**. Your app might need to send email notifications, sync with a calendar, post messages to Slack, or connect to an existing database. The integrations section lists these connections and what data flows between them.
+
+## The three tabs
+
+When you view a blueprint in the Builder, you'll see three tabs at the top. Each tab offers a different perspective on your app.
+
+<Tabs>
+  <TabItem label="What (Spec)">
+    This is the main tab. It shows all six sections of your blueprint — overview, roles, processes, forms, rules, and integrations — in a readable, structured format. This is where you'll spend most of your time reviewing and refining.
+  </TabItem>
+  <TabItem label="Design (Flows)">
+    This tab shows visual workflow diagrams for your app's processes. Instead of reading steps as a list, you can see them as a flowchart. This is helpful for understanding how different steps connect and where decision points occur.
+  </TabItem>
+  <TabItem label="Developer (Build)">
+    This tab shows the technical output — the generated app code and implementation details. Most users won't need this tab, but it's there if you want to see what's being built under the hood.
+  </TabItem>
+</Tabs>
+
+## How to read your blueprint
+
+When you first see your blueprint, start with the **Overview** to confirm the AI understood your app's purpose. Then check the **Roles** to make sure the right people are represented. Next, walk through each **Process** to verify the workflow steps make sense. Review the **Forms** to see if the right data is being collected, and check the **Rules** to confirm your business logic is captured correctly.
+
+You don't need to memorize every detail. The blueprint is a living document — you can update it anytime by chatting with the AI in the Builder.
+
+<Aside type="tip">
+Click on any item in a section to open its details in the inspector panel. This lets you see the full description, properties, and relationships for that item.
+</Aside>
+
+## How blueprints evolve
+
+Your blueprint is not set in stone. As you work in the Builder, you can ask the AI to make changes:
+
+- "Add a notification step after approval"
+- "Create a new role for department heads"
+- "Remove the email integration"
+- "Change the expense limit rule from $500 to $1,000"
+
+Each change updates the blueprint in real time. You can also switch between tabs to see how your changes affect the workflow diagrams and technical implementation.
+
+Over time, your blueprint becomes more detailed and refined as you iterate. Think of it as a collaborative document between you and the AI — you provide the direction, and the AI handles the details.
