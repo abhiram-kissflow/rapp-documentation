@@ -1,6 +1,107 @@
 ---
-title: Get a Demo
-description: Request a demo of Kissflow RAPP.
+title: Get a demo
+description: Try Kissflow RAPP locally — set up in minutes and experience the full AI-powered app generation workflow.
 ---
 
-Content coming soon.
+import { Aside, Card, CardGrid } from '@astrojs/starlight/components';
+
+The best way to evaluate RAPP is to run it yourself. The setup takes about five minutes and gives you access to the full platform — conversation engine, voice input, blueprint generation, and the visual builder.
+
+## What you will experience
+
+<CardGrid>
+  <Card title="1. Describe your app" icon="pencil">
+    Type or speak your app idea on the landing page. For example: "I need an expense reporting system where employees submit receipts and managers approve them."
+  </Card>
+  <Card title="2. Answer a few questions" icon="list-format">
+    The AI asks 3 to 5 targeted questions about your requirements. Each question has clickable options — no typing needed.
+  </Card>
+  <Card title="3. Review the blueprint" icon="document">
+    RAPP generates a complete specification: overview, roles, processes, forms, business rules, and integrations. Browse each section in the visual builder.
+  </Card>
+  <Card title="4. Refine with AI" icon="comment">
+    Chat with the AI in the builder to modify the specification. Ask it to add features, change workflows, or adjust business rules.
+  </Card>
+</CardGrid>
+
+## Quick setup
+
+### Prerequisites
+
+- **Node.js 20 or higher** — [download from nodejs.org](https://nodejs.org)
+- **pnpm 9.15 or higher** — package manager (required; npm and yarn will not work)
+- **Git** — to clone the repository and initialize submodules
+
+Install pnpm if you do not have it:
+
+```bash
+corepack enable
+corepack prepare pnpm@9.15.0 --activate
+```
+
+### Steps
+
+```bash
+# 1. Clone the repository
+git clone https://github.com/OrangeScape/rapp-design.git
+cd rapp-design
+
+# 2. Initialize the design system submodule
+git submodule update --init --recursive
+
+# 3. Install dependencies
+pnpm install
+
+# 4. (Optional) Add your OpenAI API key for live AI features
+echo "VITE_OPENAI_API_KEY=your-key-here" > .env
+
+# 5. Start the development server
+pnpm dev
+```
+
+Open your browser to `https://localhost:3000` for the website or `https://localhost:3000/builder` for the builder.
+
+<Aside type="tip">
+No OpenAI API key? The builder includes a static demo mode that loads a pre-built Leave Management application. You can explore the blueprint editor, admin panel, and builder interface without any AI calls.
+</Aside>
+
+### Optional: enable voice
+
+To try voice conversations, start the voice proxy in a separate terminal:
+
+```bash
+cd openai-voice-proxy
+pnpm install
+pnpm dev
+```
+
+This starts a WebSocket server on port 3003. The main application automatically routes voice traffic through it.
+
+## What to look for during your evaluation
+
+**On the website (`/`):**
+- How naturally the AI understands your app description
+- The relevance and conciseness of interview questions
+- The completeness of the generated specification
+
+**In the builder (`/builder`):**
+- Blueprint sections: overview, roles, processes, forms, rules, integrations
+- AI chat for refining the specification
+- The admin panel at `/builder/runtimeadmin`
+
+[screenshot placeholder]
+
+## Next steps
+
+<CardGrid>
+  <Card title="Getting started guide" icon="open-book">
+    For a detailed walkthrough of the platform, see the [Getting started guide](/rapp-documentation/guide/getting-started/).
+  </Card>
+  <Card title="GitHub repository" icon="github">
+    Browse the source, open issues, or contribute at [github.com/OrangeScape/rapp-design](https://github.com/OrangeScape/rapp-design).
+  </Card>
+</CardGrid>
+
+<Aside>
+RAPP is under active development. If you run into issues during setup or have questions about the platform, open an issue on GitHub or reach out to the team.
+</Aside>

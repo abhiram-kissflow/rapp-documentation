@@ -1,6 +1,102 @@
 ---
 title: Capabilities
-description: Explore the key capabilities of Kissflow RAPP.
+description: A detailed look at what Kissflow RAPP can do — from AI-powered conversations to complete blueprint generation.
 ---
 
-Content coming soon.
+import { Aside, Card, CardGrid } from '@astrojs/starlight/components';
+
+RAPP combines several AI-driven capabilities into a single platform. Each one is designed to reduce the time and effort between having an idea and having a buildable specification.
+
+## Core capabilities
+
+<CardGrid>
+  <Card title="AI conversation engine" icon="comment">
+    Describe your app in plain English. RAPP's conversation engine understands business context, recognizes common app patterns (workflow, portal, data collection, tracking), and infers requirements you haven't explicitly stated.
+  </Card>
+  <Card title="Voice input" icon="microphone">
+    Prefer talking over typing? Click the microphone and speak your app idea. RAPP uses OpenAI's Realtime API for low-latency, bidirectional voice conversations — the AI listens, responds aloud, and the transcript feeds into the same engine.
+  </Card>
+  <Card title="Smart interviews" icon="list-format">
+    The AI asks 3 to 5 targeted questions — never 20. It infers roughly 80% of requirements from your initial description and only asks about the gaps. Each question offers multiple-choice options with smart defaults, so you can answer with a single click.
+  </Card>
+  <Card title="Blueprint generation" icon="document">
+    From your conversation, RAPP produces a complete Business Requirements Document covering overview, user roles, step-by-step processes, data forms, business rules, and integration points. This is a structured, reviewable specification — not a vague summary.
+  </Card>
+</CardGrid>
+
+## The conversation engine in detail
+
+RAPP's conversation engine is built from four specialized components:
+
+| Component | Role | What it does |
+|-----------|------|--------------|
+| **Context analyzer** | Understands intent | Classifies your app pattern, identifies users, features, and workflows from your initial description |
+| **Question planner** | Decides what to ask | Selects the minimum questions needed to fill gaps, tailored to your specific app pattern |
+| **Response generator** | Crafts natural messages | Produces conversational, context-aware messages — not robotic Q&A |
+| **Playbooks** | Domain knowledge | Markdown knowledge base covering app patterns, conversation best practices, and spec requirements |
+
+The engine supports two paths:
+
+- **Guided interview** — You describe your idea, the AI asks follow-up questions, and a specification is generated.
+- **Document upload** — You upload an existing requirements document (PDF, Word, or text). The AI extracts and structures the requirements automatically, with no interview needed.
+
+## Blueprint contents
+
+A generated blueprint includes six sections:
+
+| Section | What it covers |
+|---------|----------------|
+| **Overview** | App purpose, key features, high-level description |
+| **Roles** | Who uses the app — Employee, Manager, HR Admin, etc. — with responsibilities |
+| **Processes** | Step-by-step workflows, such as Submit > Approve > Process, with transition logic |
+| **Forms** | Data entry forms with fields, types, and validation rules |
+| **Rules** | Business logic — "Only managers can approve leaves over 5 days" |
+| **Integrations** | External connections — email notifications, calendar sync, third-party APIs |
+
+Each section is viewable and editable in the Builder's visual interface.
+
+## The visual builder
+
+Once a blueprint is generated, it opens in the Builder — a purpose-built editor for reviewing and refining application specifications.
+
+**What you can do in the Builder:**
+
+- **Browse the blueprint** — Navigate sections through gallery and inspector views. Click any role, process, or form to see its details.
+- **Chat with AI** — Ask the AI to modify the specification. For example: "Add an escalation step if the manager doesn't respond within 48 hours."
+- **Preview the app** — See a rendered preview of the generated application alongside the specification.
+- **Iterate** — Refine through multiple rounds of AI-assisted editing until the spec matches your vision.
+
+## Admin panel
+
+The Builder includes an administration interface for configuring the generated application:
+
+- **User management** — Add and remove users, assign roles
+- **Role management** — Define roles and configure permissions
+- **Account settings** — App name, timezone, branding, and security policies
+
+## Multi-platform support
+
+RAPP runs across form factors from a single codebase:
+
+| Platform | URL path | Experience |
+|----------|----------|------------|
+| Website (desktop) | `/` | Full conversational interface with landing page, lab gallery |
+| Website (mobile) | `/mobile` | Touch-optimized conversation UI |
+| Builder (desktop) | `/builder` | Full blueprint editor with chat, preview, and admin |
+| Builder (mobile) | `/builder-m` | Simplified builder for mobile devices |
+
+All four applications share the same AI engine, state management, and design system.
+
+<Aside type="tip">
+Voice input works across both desktop and mobile experiences, so you can describe your app idea from any device.
+</Aside>
+
+## What RAPP does not do (yet)
+
+Transparency matters. Here is what is currently outside RAPP's scope:
+
+- **Production-ready code deployment** — RAPP generates specifications and app previews, not deployed production systems.
+- **Database provisioning** — The blueprint defines data structures, but does not create live databases.
+- **Third-party integration execution** — Integrations are specified in the blueprint, not yet connected at runtime.
+
+These are on the product roadmap. Today, RAPP's strength is turning an idea into a complete, structured specification faster than any alternative.

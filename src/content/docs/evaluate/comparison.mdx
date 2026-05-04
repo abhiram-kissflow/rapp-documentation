@@ -1,6 +1,74 @@
 ---
-title: How It Compares
-description: See how Kissflow RAPP compares to other solutions.
+title: How it compares
+description: See how Kissflow RAPP compares to traditional low-code platforms and no-code builders.
 ---
 
-Content coming soon.
+import { Aside } from '@astrojs/starlight/components';
+
+Choosing the right tool depends on your team, your timeline, and the kind of application you need. This page compares RAPP to the two most common categories of alternatives: traditional low-code platforms and no-code builders.
+
+## Comparison at a glance
+
+| Criteria | RAPP | Traditional low-code (Mendix, OutSystems) | No-code builders (Bubble, Retool) |
+|----------|------|------------------------------------------|-----------------------------------|
+| **Input method** | Conversation (text or voice) | Drag-and-drop with configuration | Templates plus forms and visual editors |
+| **Role of AI** | Core — powers the entire workflow | Add-on or optional copilot | Limited or none |
+| **Learning curve** | Minutes — describe what you need | Days to weeks of training | Hours to days |
+| **Output** | Complete BRD specification (blueprint) | Deployed application configuration | Deployed application configuration |
+| **Customization** | AI-assisted refinement through chat | Full programmatic control, extensible code | Limited to platform capabilities |
+| **Best suited for** | Business app specifications, rapid prototyping | Enterprise applications at scale | Simple internal tools and dashboards |
+| **Deployment model** | Static site on edge CDN | Vendor-managed cloud or on-premises | Vendor-managed cloud |
+| **Pricing model** | Open source (self-hosted) | Per-user, often enterprise-tier pricing | Freemium, per-user or per-app |
+
+## Where RAPP excels
+
+**Speed to first specification.** With traditional tools, you typically spend days gathering requirements in meetings before anyone opens the platform. With RAPP, the requirements gathering and structuring happen in a single AI-assisted conversation. A first blueprint can be ready in minutes.
+
+**Accessibility for non-technical users.** RAPP requires no platform knowledge. If you can describe what you need in a sentence — "I want an expense reporting system where employees submit receipts and managers approve them" — you can use RAPP. Low-code platforms require learning a visual IDE. No-code tools require understanding templates and configuration patterns.
+
+**Voice-first option.** RAPP is one of the few platforms that lets you describe your application by speaking. This is particularly useful during early ideation, brainstorming sessions, or when working away from a keyboard.
+
+**Structured output.** The generated blueprint is a complete Business Requirements Document: roles, processes, forms, rules, and integrations. This is valuable not just for building the app, but for review, sign-off, and handoff to development teams.
+
+## Where alternatives excel
+
+**Production deployment.** Platforms like Mendix, OutSystems, Bubble, and Retool produce running applications that can be deployed immediately. RAPP currently generates specifications and previews. Turning a RAPP blueprint into a deployed application requires additional development steps.
+
+**Enterprise ecosystem.** Traditional low-code platforms offer mature features for enterprise environments: governance frameworks, role-based access at the platform level, audit trails, compliance certifications, and dedicated support. RAPP is an open-source project in active development.
+
+**Complex integrations.** Established platforms have pre-built connectors to hundreds of enterprise systems (SAP, Salesforce, ServiceNow, databases). RAPP specifies integration points in the blueprint, but connecting them requires implementation.
+
+**Long-term maintenance.** Low-code and no-code platforms handle infrastructure, scaling, and updates. A RAPP-generated specification still needs a team to build, deploy, and maintain the final application.
+
+## Honest trade-offs
+
+<Aside type="caution">
+RAPP is transparent about where it is today. Understanding these trade-offs will help you decide if RAPP fits your use case.
+</Aside>
+
+**RAPP is newer.** It does not have the decade-long track record of established platforms. The feature set is growing, but it is not yet at parity with mature low-code tools for production deployments.
+
+**Specifications, not running apps.** RAPP's current strength is generating structured, complete specifications very quickly. If you need a deployed application today with no further development, a no-code or low-code platform may be more appropriate.
+
+**AI dependency.** RAPP's core value depends on OpenAI's API. This introduces a third-party dependency for the AI-powered features (though the platform degrades gracefully with static demo data when no API key is configured).
+
+**Best for business applications.** RAPP's AI is trained on business app patterns — workflows, approvals, portals, data collection, and tracking. It is not designed for consumer applications, games, or highly custom technical platforms.
+
+## When to choose RAPP
+
+RAPP is the strongest choice when:
+
+- You need a structured specification quickly and want to skip the manual requirements-gathering phase
+- Your team includes non-technical stakeholders who should be able to define the app themselves
+- You are building internal business applications (HR, operations, finance, project management)
+- You want to prototype and validate an app idea before committing to a full build
+- You value AI-assisted refinement over manual drag-and-drop configuration
+
+## When to choose an alternative
+
+Consider a traditional low-code or no-code platform when:
+
+- You need a production-ready, deployed application with no additional development
+- Enterprise compliance certifications (SOC 2, HIPAA, ISO 27001) are required from the platform vendor
+- You need pre-built connectors to specific enterprise systems
+- Your team has the capacity and budget to invest in platform training

@@ -1,6 +1,113 @@
 ---
-title: Security & Compliance
-description: Security measures and compliance standards in Kissflow RAPP.
+title: Security and compliance
+description: How Kissflow RAPP handles API keys, data flow, and production security.
 ---
 
-Content coming soon.
+import { Aside } from '@astrojs/starlight/components';
+
+Security is a practical concern for any platform that integrates with third-party AI services. This page explains how RAPP handles sensitive data, API credentials, and production deployment.
+
+## API key handling
+
+RAPP integrates with OpenAI's APIs for all AI-powered features. The most important security consideration is ensuring API keys are never exposed to end users.
+
+**Development environment:**
+In local development, the OpenAI API key is stored in a `.env` file and used for direct API calls from the browser. This is acceptable in a local-only context where the developer controls the environment.
+
+**Production environment:**
+In production, API keys are never sent to the browser. All OpenAI requests are routed through a server-side proxy:
+
+```
+Browser (no API key) -> /api/openai (server proxy) -> OpenAI API (key added server-side)
+```
+
+The proxy endpoint at `/api/openai` receives requests from the browser, attaches the API key on the server side, forwards the request to OpenAI, and returns the response. The browser never sees or handles the key.
+
+<Aside type="caution">
+The `VITE_OPENAI_API_KEY` environment variable is used only in development. In production builds, the application routes all requests through the server-side proxy automatically.
+</Aside>
+
+## Voice proxy security
+
+The voice system uses a separate WebSocket proxy server that bridges browser audio to OpenAI's Realtime API. This proxy implements several security measures:
+
+- **Origin validation** — The proxy checks the `Origin` header on every WebSocket connection. Only connections from explicitly allowed origins are accepted. Connections from unauthorized origins are rejected with an error code.
+- **Configurable allowed origins** — Administrators can set the `VOICE_PROXY_ALLOWED_ORIGINS` environment variable to define which domains may connect.
+- **API key isolation** — The OpenAI API key used for voice features lives exclusively on the proxy server. It is never transmitted to or accessible from the browser.
+- **Session-scoped connections** — Each voice session creates a dedicated WebSocket connection that is torn down when the session ends.
+
+## Data flow overview
+
+Understanding where data lives and moves is critical for security evaluation:
+
+```
+User input (text/voice)
+    |
+    v
+Browser application
+    |-- Conversation state -> localStorage (browser-only)
+    |-- AI requests ---------> Server proxy ---------> OpenAI API
+    |-- Voice audio ---------> Voice proxy ----------> OpenAI Realtime API
+    |
+    v
+Generated blueprint
+    |
+    v
+localStorage (browser-only, no server storage)
+```
+
+**What is stored client-side:**
+- Application specifications (blueprints)
+- Conversation history and interview answers
+- User preferences and UI state
+
+**What is NOT stored client-side:**
+- API keys or credentials (production)
+- Authentication tokens for external services
+- Server-side session data
+
+**What is sent to OpenAI:**
+- User prompts and conversation messages (text)
+- Audio data during voice sessions
+- System prompts and playbook content for context
+
+<Aside>
+RAPP does not maintain a backend database for user data in its current architecture. All application state is stored in the browser's localStorage. This means data does not leave the user's device except when sent to OpenAI for processing.
+</Aside>
+
+## Deployment security
+
+RAPP deploys to Cloudflare Pages, which provides infrastructure-level security:
+
+| Capability | Description |
+|-----------|-------------|
+| **HTTPS everywhere** | TLS certificates are automatically provisioned and renewed. All traffic is encrypted in transit. |
+| **Edge network** | Assets are served from Cloudflare's global CDN, reducing attack surface by not exposing an origin server. |
+| **DDoS protection** | Cloudflare's network-level DDoS mitigation is included by default. |
+| **No origin server** | RAPP is a static site deployment. There is no traditional server to compromise — only static assets and serverless functions. |
+| **Branch previews** | Pull request previews are deployed to isolated URLs, keeping production separate from development. |
+
+## CI/CD pipeline security
+
+The automated deployment pipeline includes these safeguards:
+
+- **Frozen lockfile** — Dependencies are installed with `pnpm install --frozen-lockfile`, ensuring the exact versions specified in the lockfile are used. No unexpected dependency changes.
+- **Private submodule access** — The KF Design System submodule is accessed via a GitHub Personal Access Token scoped to the repository, not a broad-access credential.
+- **Build-time only secrets** — API keys and deployment tokens are GitHub Actions secrets, injected only during the build and deploy steps.
+
+## Security considerations for evaluators
+
+**Strengths:**
+- API keys are never exposed to browsers in production
+- Client-side architecture means no server-side data store to breach
+- Cloudflare infrastructure provides enterprise-grade edge security
+- Origin validation on voice connections prevents unauthorized access
+
+**Areas to evaluate for your context:**
+- Data sent to OpenAI is subject to OpenAI's data usage policies. Review [OpenAI's enterprise terms](https://openai.com/enterprise-privacy) for your compliance requirements.
+- localStorage is accessible to any JavaScript running on the same origin. Ensure your deployment domain is not shared with untrusted code.
+- The current architecture does not include user authentication for the public-facing website. The Builder's admin panel includes role-based access controls.
+
+<Aside type="tip">
+For enterprise deployments requiring additional controls — such as data residency, audit logging, or SSO integration — contact the RAPP team to discuss your requirements.
+</Aside>

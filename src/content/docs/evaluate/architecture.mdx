@@ -1,6 +1,141 @@
 ---
 title: Architecture
-description: Understand the technical architecture behind Kissflow RAPP.
+description: A simplified look at how Kissflow RAPP is built — modular design, AI integration, and deployment infrastructure.
 ---
 
-Content coming soon.
+import { Aside } from '@astrojs/starlight/components';
+
+This page provides a technical overview for evaluators who want to understand how RAPP is built without going deep into implementation details. For full technical documentation, see the developer reference.
+
+## High-level system design
+
+RAPP is a client-side application built with React and TypeScript. It communicates with OpenAI's API for all AI features and deploys to Cloudflare's edge network.
+
+```
+                         +------------------+
+                         |   Cloudflare     |
+                         |   Pages (CDN)    |
+                         +--------+---------+
+                                  |
+                    +-------------+-------------+
+                    |                           |
+             +------+------+           +-------+-------+
+             |  Website    |           |   Builder     |
+             |  App        |           |   App         |
+             |             |           |               |
+             | Conversation|           | Blueprint     |
+             | engine,     |           | editor, chat, |
+             | voice, lab  |           | admin panel   |
+             +------+------+           +-------+-------+
+                    |                           |
+                    +-------------+-------------+
+                                  |
+                    +-------------+-------------+
+                    |                           |
+             +------+------+           +-------+-------+
+             |  OpenAI     |           |  Voice Proxy  |
+             |  Chat API   |           |  (WebSocket)  |
+             |  GPT models |           |  Realtime API |
+             +-------------+           +---------------+
+```
+
+## Modular monorepo
+
+RAPP is a monorepo containing four applications that share a single codebase, build system, and development server. A custom Vite plugin routes requests to the correct application based on the URL path:
+
+| URL path | Application | Purpose |
+|----------|------------|---------|
+| `/` | Website (desktop) | Conversational AI interface for describing apps |
+| `/mobile` | Website (mobile) | Mobile-optimized conversation experience |
+| `/builder` | Builder (desktop) | Blueprint editor, chat, admin panel |
+| `/builder-m` | Builder (mobile) | Simplified mobile builder |
+
+This architecture means:
+
+- **Shared code is truly shared.** Components, utilities, types, and the design system are imported directly — no package publishing or version synchronization needed.
+- **One build, one deploy.** All four applications are built and deployed together, eliminating version drift between the website and builder.
+- **Code splitting is automatic.** When a user visits the website, only the website bundle is downloaded. The builder code is never loaded unless needed.
+
+## Tech stack
+
+| Layer | Technology | Why it was chosen |
+|-------|-----------|-------------------|
+| UI framework | React 19 | Component model, ecosystem, developer availability |
+| Language | TypeScript 5.7 (strict mode) | Type safety across the entire codebase |
+| Build tool | Vite 7.3 | Fast development server, optimized production builds |
+| Styling | Tailwind CSS 4.0 | Utility-first approach, consistent design, small bundles |
+| State management | Zustand 5.0 | Minimal boilerplate, built-in persistence to localStorage |
+| UI primitives | Radix UI | Accessible, WCAG-compliant, unstyled components |
+| Design system | KF Design System (submodule) | Shared component library across Kissflow products |
+| Package manager | pnpm 9.15 | Fast installs, efficient disk usage |
+
+## AI integration
+
+AI is central to RAPP, not an add-on. Two OpenAI integration points power different parts of the platform:
+
+**Text-based AI (Chat Completions API)**
+
+- Used for context analysis, interview questions, specification generation, chat responses, and code generation
+- Models: GPT-5.2 for high-quality tasks (spec generation, code), GPT-5.2-chat-latest for fast tasks (classification, titles)
+- Responses stream token-by-token for real-time user feedback
+
+**Voice AI (Realtime API)**
+
+- Used for bidirectional voice conversations
+- Persistent WebSocket connection for low-latency audio streaming
+- The AI processes speech directly — no separate transcription step
+- Audio flows through a dedicated voice proxy server that holds the API key server-side
+
+<Aside>
+In development, the AI can be bypassed using a static demo mode that returns a pre-built Leave Management app. This allows UI development and demos without an API key.
+</Aside>
+
+## Voice system
+
+The voice pipeline connects the user's microphone to OpenAI's Realtime API through a proxy server:
+
+```
+Microphone -> AudioWorklet (capture) -> WebSocket -> Voice Proxy -> OpenAI Realtime API
+                                                                          |
+Speaker   <- Audio Playback          <- WebSocket <- Voice Proxy  <-------+
+```
+
+Key design decisions:
+
+- **Proxy architecture** — The browser cannot connect to OpenAI directly (API key security and CORS). A Node.js WebSocket server bridges the connection.
+- **Silence detection** — The system monitors audio amplitude and automatically detects when the user stops talking (below threshold for 1.5 seconds), eliminating the need for a "push to talk" button.
+- **Bidirectional streaming** — Audio flows in both directions simultaneously. The AI can begin responding before the user finishes, enabling natural conversational flow.
+
+## State management
+
+RAPP uses Zustand stores with automatic persistence to localStorage:
+
+- **App store** — Holds the current application, conversation history, interview state, and generated specifications
+- **Admin store** — Manages user accounts, roles, and configuration for the generated app
+- **Auth store** — Shared authentication state across both applications
+
+State survives browser refreshes. No server-side session storage is required for the core workflow.
+
+## Deployment
+
+RAPP deploys to **Cloudflare Pages** through an automated CI/CD pipeline:
+
+1. Code is pushed to the `main` branch on GitHub
+2. GitHub Actions checks out the repository and submodules
+3. The project is built with Node.js 22 and pnpm
+4. The production bundle is deployed to Cloudflare Pages via Wrangler CLI
+
+Cloudflare provides:
+
+- **Global edge network** — Assets served from the nearest data center
+- **Automatic HTTPS** — TLS certificates managed by Cloudflare
+- **Preview deployments** — Every pull request gets a unique preview URL
+- **DDoS protection** — Built into the Cloudflare infrastructure
+
+<Aside type="tip">
+The entire deployment pipeline is fully automated. Merging to main triggers a build and deploy with no manual steps.
+</Aside>
+
+## What is not covered here
+
+This overview intentionally omits implementation details such as Vite plugin internals, import resolution mechanics, code splitting configuration, and audio encoding pipelines. These are documented in the developer reference for contributors who need them.
